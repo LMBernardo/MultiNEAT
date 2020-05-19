@@ -104,9 +104,11 @@ def getExtensions():
         from Cython.Build import cythonize
         sources.insert(0, '_MultiNEAT.pyx')
         extra.append('-O3')
+
         # For Windows using Boost - change to location of Boost libs
         if is_windows:
             extra += ["-I{}\\".format('C:\\local\\boost_1_72_0')]
+
         extensionsList.extend(cythonize([Extension('MultiNEAT._MultiNEAT',
                                                    sources,
                                                    extra_compile_args=extra)],
@@ -128,12 +130,11 @@ def getExtensions():
         BOOST_NUMPY = 'boost_numpy'
         BOOST_LIBS_VERS_STRING = ""
 
-        # Change to your version of Python
-        if not is_python_2:
-            # with boost 1.67 you need boost_python3x and boost_numpy3x where x is python version 3.x
-            # in Ubuntu 14 there is only 'boost_python-py34'
-            BOOST_PYTHON += "38"
-            BOOST_NUMPY += "38"
+	# Change to your version of Python
+	PYTHON_VERS_STRING = "38"
+
+        BOOST_PYTHON += PYTHON_VERS_STRING
+        BOOST_NUMPY += PYTHON_VERS_STRING
 
         # For Windows with mingw
         # libraries= ['libboost_python-mgw48-mt-1_58',
@@ -141,7 +142,8 @@ def getExtensions():
         # include_dirs = ['C:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\include', 'C:\local\boost_1_72_0'],
         # lib_dirs += ['C:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\lib', 'C:\local\boost_1_72_0\lib32-msvc-14.1'],
 
-        # For Windows using MSVC / Boost - change to location of Boost libs, correct Boost/MSVC version, and architecture (x86 or x64)
+        # For Windows using MSVC / Boost
+	# NOTE: Change to location of Boost libs, correct Boost/MSVC version, and architecture (x86 or x64)
         if is_windows:
             extra += ["-I{}\\".format('C:\\local\\boost_1_72_0')]
             lib_dirs += ['C:\\local\\boost_1_72_0\\stage\\lib32-msvc-14.1\\lib']
