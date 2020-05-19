@@ -124,6 +124,19 @@ def getExtensions():
 
         lib_dirs = []
 
+
+	# NOTE: Change to correct architecture (x86 or x64) and Boost/MSVC version
+	# 32 or 64 bit
+        ADDRESS_MODEL="64"
+
+        # MSVC version
+        MSVC_VERS = "14"
+        MSVC_MINOR = "2"
+
+        # Boost version
+        BOOST_VERS = "1_72"
+        BOOST_MINOR = "0"
+
         BOOST_SYSTEM = 'boost_system'
         BOOST_SERIAL = 'boost_serialization'
 
@@ -134,11 +147,10 @@ def getExtensions():
         # lib_dirs += ['C:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\lib', 'C:\local\boost_1_72_0\lib32-msvc-14.1'],
 
         # For Windows using MSVC / Boost
-	# NOTE: Change to location of Boost libs, correct Boost/MSVC version, and architecture (x86 or x64)
         if is_windows:
-            extra += ["-I{}\\".format('C:\\local\\boost_1_72_0')]
-            lib_dirs += ['C:\\local\\boost_1_72_0\\stage\\lib32-msvc-14.2\\lib']
-            BOOST_LIBS_VERS_STRING = "-vc142-mt-x32-1_72"
+            extra += ["-I{}\\".format('C:\\local\\boost_' + BOOST_VERS + '_' + BOOST_MINOR)]
+            lib_dirs += ['C:\\local\\boost_' + BOOST_VERS + '_' + BOOST_MINOR + '\\stage\\lib' + ADDRESS_MODEL + '-msvc-' + MSVC_VERS + '.' + MSVC_MINOR + '\\lib']
+            BOOST_LIBS_VERS_STRING = '-vc' + MSVC_VERS + MSVC_MINOR + '-mt-x' + ADDRESS_MODEL + '-' + BOOST_VERS
 
         BOOST_SYSTEM += BOOST_LIBS_VERS_STRING
         BOOST_SERIAL += BOOST_LIBS_VERS_STRING
