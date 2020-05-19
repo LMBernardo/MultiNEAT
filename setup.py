@@ -126,15 +126,6 @@ def getExtensions():
 
         BOOST_SYSTEM = 'boost_system'
         BOOST_SERIAL = 'boost_serialization'
-        BOOST_PYTHON = 'boost_python'
-        BOOST_NUMPY = 'boost_numpy'
-        BOOST_LIBS_VERS_STRING = ""
-
-	# Change to your version of Python
-	PYTHON_VERS_STRING = "38"
-
-        BOOST_PYTHON += PYTHON_VERS_STRING
-        BOOST_NUMPY += PYTHON_VERS_STRING
 
         # For Windows with mingw
         # libraries= ['libboost_python-mgw48-mt-1_58',
@@ -148,15 +139,11 @@ def getExtensions():
             extra += ["-I{}\\".format('C:\\local\\boost_1_72_0')]
             lib_dirs += ['C:\\local\\boost_1_72_0\\stage\\lib32-msvc-14.1\\lib']
             BOOST_LIBS_VERS_STRING = "-vc141-mt-x32-1_72"
-            BOOST_PYTHON = "lib" + BOOST_PYTHON
-            BOOST_NUMPY = "lib" + BOOST_NUMPY
 
         BOOST_SYSTEM += BOOST_LIBS_VERS_STRING
         BOOST_SERIAL += BOOST_LIBS_VERS_STRING
-        BOOST_PYTHON += BOOST_LIBS_VERS_STRING
-        BOOST_NUMPY += BOOST_LIBS_VERS_STRING
 
-        libs = [BOOST_SYSTEM, BOOST_SERIAL, BOOST_PYTHON, BOOST_NUMPY]
+        libs = [BOOST_SYSTEM, BOOST_SERIAL]
 
         extra.extend(['-DUSE_BOOST_PYTHON', '-DUSE_BOOST_RANDOM', #'-O0',
                       #'-DVDEBUG',
