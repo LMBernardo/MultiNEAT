@@ -7,8 +7,8 @@ NOTE: b2.exe WILL NOT build boost_numpy unless it detects that numpy is installe
 	  To check test command on your own system, add `--debug-configuration` to commands given below
 	  
 
-To build boost on Windows x64:
-`.\b2.exe address-model=64 toolset=msvc-14.1 --stagedir=./stage/lib64-msvc-14.1 --build-dir=build/lib64-msvc-14.1 threading=multi --build-type=complete stage -j 8`
-
-To build boost on Windows x86:
+To build boost for x86:
 `.\b2.exe address-model=32 toolset=msvc-14.1 --stagedir=./stage/lib32-msvc-14.1 --build-dir=build/lib32-msvc-14.1 threading=multi --build-type=complete stage -j 8`
+
+To build boost for x64:
+`.\b2.exe address-model=64 toolset=msvc-14.1 --stagedir=./stage/lib64-msvc-14.1 --build-dir=build/lib64-msvc-14.1 threading=multi --build-type=complete stage -j 8`
