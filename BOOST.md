@@ -1,5 +1,5 @@
 For Windows with MSVC 14.1, use the following commands after running bootstrap.sh
-NOTE: b2.exe WILL NOT build boost_numpy unless it detects that numpy is installed (`pip install numpy`)
+NOTE: b2.exe WILL NOT build boost_numpy unless it detects that numpy is installed (`python -m pip install numpy`)
 	  Please make sure that numpy is installed for the version of python used by the build test:
 	  `python -c "import sys; sys.stderr = sys.stdout; import numpy; print(numpy.get_include())"`
 	  
