@@ -8,6 +8,7 @@
 # cython: embedsignature=True
 # cython: c_string_type=str
 # cython: c_string_encoding=ascii
+# cython: language_level=2
 
 from libcpp.vector cimport vector
 from libcpp cimport bool
