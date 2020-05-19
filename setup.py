@@ -137,8 +137,8 @@ def getExtensions():
 	# NOTE: Change to location of Boost libs, correct Boost/MSVC version, and architecture (x86 or x64)
         if is_windows:
             extra += ["-I{}\\".format('C:\\local\\boost_1_72_0')]
-            lib_dirs += ['C:\\local\\boost_1_72_0\\stage\\lib32-msvc-14.1\\lib']
-            BOOST_LIBS_VERS_STRING = "-vc141-mt-x32-1_72"
+            lib_dirs += ['C:\\local\\boost_1_72_0\\stage\\lib32-msvc-14.2\\lib']
+            BOOST_LIBS_VERS_STRING = "-vc142-mt-x32-1_72"
 
         BOOST_SYSTEM += BOOST_LIBS_VERS_STRING
         BOOST_SERIAL += BOOST_LIBS_VERS_STRING
