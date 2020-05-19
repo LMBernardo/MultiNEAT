@@ -92,10 +92,10 @@ def getExtensions():
             print('Source file is missing and MN_BUILD environment variable is not set.\n'
                   'Specify either \'cython\' or \'boost\'. Example to build in Linux with Cython:\n'
                   '\t$ export MN_BUILD=cython')
-            s = input('Enter "1" for cython, "2" for boost, or anything else to quit\n')
-            if s == '1':
+            s = input('Enter "c" for cython, "b" for boost, or anything else to quit\n')
+            if s == 'c':
                 build_sys = 'cython'
-            elif s == '2':
+            elif s == 'b':
                 build_sys = 'boost'
             else:
                 exit(1)
@@ -141,12 +141,13 @@ def getExtensions():
         # include_dirs = ['C:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\include', 'C:\local\boost_1_72_0'],
         # lib_dirs += ['C:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\lib', 'C:\local\boost_1_72_0\lib32-msvc-14.1'],
 
-        # For Windows using MSVC / Boost - change to location of Boost libs, correct vc version, and architecture (x86 or x64)
-        # NOTE: There is a bug in Boost 1.72.0 that prevents boost_numpy from being built. Boost 1.73.0 works.
+        # For Windows using MSVC / Boost - change to location of Boost libs, correct Boost/MSVC version, and architecture (x86 or x64)
         if is_windows:
-            extra += ["-I{}\\".format('C:\\local\\boost_1_73_0')]
-            lib_dirs += ['C:\\local\\boost_1_73_0\\lib64-msvc-14.1']
-            BOOST_LIBS_VERS_STRING = "-vc141-mt-x64-1_73"
+            extra += ["-I{}\\".format('C:\\local\\boost_1_72_0')]
+            lib_dirs += ['C:\local\boost_1_72_0\stage\lib64-msvc-14.1\lib']
+            BOOST_LIBS_VERS_STRING = "-vc141-mt-x64-1_72"
+            BOOST_PYTHON = "lib" + BOOST_PYTHON
+            BOOST_NUMPY = "lib" + BOOST_NUMPY
 
         BOOST_SYSTEM += BOOST_LIBS_VERS_STRING
         BOOST_SERIAL += BOOST_LIBS_VERS_STRING
