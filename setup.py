@@ -105,7 +105,7 @@ def getExtensions():
         sources.insert(0, '_MultiNEAT.pyx')
         extra.append('-O3')
 
-        # For Windows using Boost - change to location of Boost libs
+        # For Windows - change to location of Boost libs
         if is_windows:
             extra += ["-I{}\\".format('C:\\local\\boost_1_72_0')]
 
@@ -125,7 +125,8 @@ def getExtensions():
         lib_dirs = []
 
 
-	# NOTE: Change to correct architecture (x86 or x64) and Boost/MSVC version
+	# NOTE: Change to correct architecture (x86 or x64), Boost install directory, Boost/MSVC version, and Python version
+
 	# 32 or 64 bit
         ADDRESS_MODEL="64"
 
@@ -133,12 +134,19 @@ def getExtensions():
         MSVC_VERS = "14"
         MSVC_MINOR = "2"
 
+	BOOST_INSTALL_DIR = 'C:\\local'
+
         # Boost version
         BOOST_VERS = "1_72"
         BOOST_MINOR = "0"
 
+        # Python version
+        PYTHON_VERS = "37"
+
         BOOST_SYSTEM = 'boost_system'
         BOOST_SERIAL = 'boost_serialization'
+        BOOST_PYTHON = 'boost_python'
+        BOOST_NUMPY = 'boost_numpy'
 
         # For Windows with mingw
         # libraries= ['libboost_python-mgw48-mt-1_58',
@@ -148,14 +156,15 @@ def getExtensions():
 
         # For Windows using MSVC / Boost
         if is_windows:
-            extra += ["-I{}\\".format('C:\\local\\boost_' + BOOST_VERS + '_' + BOOST_MINOR)]
-            lib_dirs += ['C:\\local\\boost_' + BOOST_VERS + '_' + BOOST_MINOR + '\\stage\\lib' + ADDRESS_MODEL + '-msvc-' + MSVC_VERS + '.' + MSVC_MINOR + '\\lib']
+            extra += ["-I{}\\".format('BOOST_INSTALL_DIR\\boost_' + BOOST_VERS + '_' + BOOST_MINOR)]
+            lib_dirs += ['BOOST_INSTALL_DIR\\boost_' + BOOST_VERS + '_' + BOOST_MINOR + '\\stage\\lib']
             BOOST_LIBS_VERS_STRING = '-vc' + MSVC_VERS + MSVC_MINOR + '-mt-x' + ADDRESS_MODEL + '-' + BOOST_VERS
+            BOOST_PYTHON += PYTHON_VERS + BOOST_LIBS_VERS_STRING
+            BOOST_NUMPY += PYTHON_VERS + BOOST_LIBS_VERS_STRING
+            BOOST_SYSTEM += BOOST_LIBS_VERS_STRING
+            BOOST_SERIAL += BOOST_LIBS_VERS_STRING
 
-        BOOST_SYSTEM += BOOST_LIBS_VERS_STRING
-        BOOST_SERIAL += BOOST_LIBS_VERS_STRING
-
-        libs = [BOOST_SYSTEM, BOOST_SERIAL]
+        libs = [BOOST_SYSTEM, BOOST_SERIAL, BOOST_PYTHON, BOOST_NUMPY]
 
         extra.extend(['-DUSE_BOOST_PYTHON', '-DUSE_BOOST_RANDOM', #'-O0',
                       #'-DVDEBUG',
