@@ -7,7 +7,7 @@ NOTE: b2.exe WILL NOT build boost_numpy unless it detects that numpy is installe
 	  To check test command on your own system, add `--debug-configuration` to commands given below
 	  
 NOTE: If you get an import module error when attempting to import ._MultiNEAT, you may need to add the Boost
-      library directory to your PATH variable (e.g., 'C:\local\boost_1_72_0\stage\lib64-msvc-14.2\lib')
+      library directory to your PATH variable (e.g., 'C:\local\boost_1_72_0\stage\lib')
 
 To build boost for x86:
 `.\b2.exe address-model=32 toolset=msvc-14.2 threading=multi --build-type=complete stage -j 8`
