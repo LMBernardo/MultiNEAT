@@ -133,8 +133,7 @@ def getExtensions():
         # MSVC version
         MSVC_VERS = "14"
         MSVC_MINOR = "2"
-
-	BOOST_INSTALL_DIR = 'C:\\local'
+        BOOST_INSTALL_DIR = 'C:\\local'
 
         # Boost version
         BOOST_VERS = "1_72"
