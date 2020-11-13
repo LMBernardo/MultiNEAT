@@ -26,7 +26,6 @@ def parallelCCompile(self, sources, output_dir=None, macros=None, include_dirs=N
 #import distutils.ccompiler
 #distutils.ccompiler.CCompiler.compile=parallelCCompile
 
-
 ''' Note:
 
 to build Boost.Python on Windows with mingw
@@ -40,9 +39,30 @@ also insert this on top of boost/python.hpp :
 
 '''
 
+# NOTE: Change to correct architecture (x86 or x64), Boost install directory, Boost/MSVC version, and Python version
+
+# 32 or 64 bit
+ADDRESS_MODEL="64"
+
+# MSVC version
+MSVC_VERS = "14"
+MSVC_MINOR = "2"
+BOOST_INSTALL_DIR = 'C:\\dev'
+
+# Boost version
+BOOST_VERS = "1_74"
+BOOST_MINOR = "0"
+
+# Python version
+PYTHON_VERS = "38"
 
 def getExtensions():
     platform = sys.platform
+
+    BOOST_SYSTEM = 'boost_system'
+    BOOST_SERIAL = 'boost_serialization'
+    BOOST_PYTHON = 'boost_python'
+    BOOST_NUMPY = 'boost_numpy'
 
     extensionsList = []
     sources = ['src/Genome.cpp',
@@ -107,7 +127,7 @@ def getExtensions():
 
         # For Windows - change to location of Boost libs
         if is_windows:
-            extra += ["-I{}\\".format('C:\\local\\boost_1_72_0')]
+            extra += ["-I{}\\".format('C:\\' + BOOST_INSTALL_DIR + '\\boost_' + BOOST_VERS + '_' + BOOST_MINOR)]
 
         extensionsList.extend(cythonize([Extension('MultiNEAT._MultiNEAT',
                                                    sources,
@@ -124,29 +144,6 @@ def getExtensions():
 
         lib_dirs = []
 
-
-	# NOTE: Change to correct architecture (x86 or x64), Boost install directory, Boost/MSVC version, and Python version
-
-	# 32 or 64 bit
-        ADDRESS_MODEL="64"
-
-        # MSVC version
-        MSVC_VERS = "14"
-        MSVC_MINOR = "2"
-        BOOST_INSTALL_DIR = 'C:\\local'
-
-        # Boost version
-        BOOST_VERS = "1_72"
-        BOOST_MINOR = "0"
-
-        # Python version
-        PYTHON_VERS = "37"
-
-        BOOST_SYSTEM = 'boost_system'
-        BOOST_SERIAL = 'boost_serialization'
-        BOOST_PYTHON = 'boost_python'
-        BOOST_NUMPY = 'boost_numpy'
-
         # For Windows with mingw
         # libraries= ['libboost_python-mgw48-mt-1_58',
         #           'libboost_serialization-mgw48-mt-1_58'],
@@ -155,8 +152,8 @@ def getExtensions():
 
         # For Windows using MSVC / Boost
         if is_windows:
-            extra += ["-I{}\\".format('BOOST_INSTALL_DIR\\boost_' + BOOST_VERS + '_' + BOOST_MINOR)]
-            lib_dirs += ['BOOST_INSTALL_DIR\\boost_' + BOOST_VERS + '_' + BOOST_MINOR + '\\stage\\lib']
+            extra += ["-I{}\\".format(BOOST_INSTALL_DIR + '\\boost_' + BOOST_VERS + '_' + BOOST_MINOR)]
+            lib_dirs += [BOOST_INSTALL_DIR + '\\boost_' + BOOST_VERS + '_' + BOOST_MINOR + '\\stage\\lib']
             BOOST_LIBS_VERS_STRING = '-vc' + MSVC_VERS + MSVC_MINOR + '-mt-x' + ADDRESS_MODEL + '-' + BOOST_VERS
             BOOST_PYTHON += PYTHON_VERS + BOOST_LIBS_VERS_STRING
             BOOST_NUMPY += PYTHON_VERS + BOOST_LIBS_VERS_STRING
